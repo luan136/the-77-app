@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10091d">
+<title>THE 77 - Final Edition</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ background:radial-gradient(circle at top,#40105d,#10091d 48%,#06050c);
+ color:#faf5ff;font-family:Arial,sans-serif;
+ min-height:100vh;padding:15px
+}
+.app{max-width:620px;margin:auto}
+header{
+ display:flex;align-items:center;gap:12px;
+ padding:15px;background:#171126;
+ border:1px solid #7540a5;border-radius:18px
+}
+.logo{
+ width:55px;height:55px;display:grid;place-items:center;
+ border-radius:15px;background:linear-gradient(135deg,#d69aff,#751ac4);
+ font-size:27px;font-weight:bold;box-shadow:0 0 20px #c084fc
+}
+.brand h1{font-size:21px;letter-spacing:2px}
+.brand p{font-size:10px;color:#bda9d2;margin-top:5px}
+.online{margin-left:auto;color:#4ade80;font-size:11px}
+.hero{
+ margin:20px 0;padding:35px 15px;text-align:center;
+ background:linear-gradient(145deg,#35134f,#130b20);
+ border:1px solid #7540a5;border-radius:22px
+}
+.hero .crown{font-size:40px;color:#e5b8ff}
+.hero h2{font-size:38px;letter-spacing:5px;color:#e2b8ff;margin:12px}
+.hero p{color:#bda9d2;letter-spacing:2px;font-size:12px;line-height:2}
+.version{display:inline-block;margin-top:12px;padding:9px 18px;border:1px solid #c084fc;border-radius:20px}
+.menu{display:flex;gap:7px;margin-bottom:18px}
+button{
+ padding:14px 10px;color:white;font-weight:bold;
+ border:1px solid #c084fc;border-radius:12px;
+ background:linear-gradient(135deg,#852ac7,#42116f);
+ cursor:pointer
+}
+.menu button{flex:1;font-size:11px;padding:13px 4px}
+section{
+ margin-bottom:17px;padding:20px;background:#191126;
+ border:1px solid #7540a5;border-radius:18px
+}
+section h2{font-size:20px;color:#dfb3ff;margin-bottom:17px}
+section p{color:#bda9d2;font-size:13px;line-height:1.6}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.stat{padding:18px 8px;text-align:center;background:#251638;border:1px solid #60358b;border-radius:13px}
+.stat strong{display:block;color:#e1b7ff;font-size:25px;margin-bottom:8px}
+.stat span{color:#bda9d2;font-size:9px}
+.welcome,.summary-item,.control{padding:14px;margin:10px 0;background:#211631;border:1px solid #60358b;border-radius:12px}
+.summary-item{font-size:13px;color:#bda9d2}
+.summary-item strong{float:right;color:#e1b7ff}
+section>button{width:100%;margin-top:10px}
+input{
+ width:100%;padding:14px;margin:9px 0;color:white;
+ background:#100b1d;border:1px solid #7541a5;
+ border-radius:11px
+}
+.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:15px 0}
+.profiles button{font-size:10px;padding:12px 3px}
+.control label{display:flex;justify-content:space-between;font-size:13px}
+.control strong{color:#e1b7ff}
+.control input{padding:0;accent-color:#c084fc}
+.avatar-box{text-align:center;margin-bottom:15px}
+#avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #c084fc;background:#271438}
+#historyList{display:grid;gap:9px}
+#message,#profileMessage,#backupMessage{margin-top:12px;text-align:center;color:#dfb3ff}
+#logout{width:100%;margin:5px 0 20px;background:#291426}
+footer{text-align:center;color:#bda9d2;font-size:11px;line-height:2;padding:20px}
+footer h3{font-size:22px;letter-spacing:4px;color:#dfb3ff}
+[hidden]{display:none!important}
+</style>
+</head>
+
+<body>
+<div class="app">
+<header>
+ <div class="logo">77</div>
+ <div class="brand">
+  <h1>THE 77</h1>
+  <p>77 XIT FF · FINAL EDITION 10.0</p>
+ </div>
+ <span class="online">● ONLINE</span>
+</header>
+
+<div class="hero">
+ <div class="crown">♛</div>
+ <p>SEJA BEM-VINDO AO</p>
+ <h2>THE 77</h2>
+ <p>FINAL EDITION</p>
+ <span class="version">VERSÃO 10.0</span>
+</div>
+
+<nav class="menu">
+ <button id="homeBtn">INÍCIO</button>
+ <button id="sensBtn">AJUSTES</button>
+ <button id="historyBtn">HISTÓRICO</button>
+</nav>
+
+<main>
+<section id="home">
+ <h2>PAINEL PRINCIPAL</h2>
+ <div class="welcome">
+  <p>IDENTIDADE THE 77</p>
+  <h3 id="welcome">Bem-vindo!</h3>
+ </div>
+ <div class="stats">
+  <div class="stat"><strong id="savedCount">0</strong><span>SALVAMENTOS</span></div>
+  <div class="stat"><strong id="averageValue">0</strong><span>MÉDIA DOS AJUSTES</span></div>
+  <div class="stat"><strong id="lastValue">--</strong><span>ÚLTIMO AJUSTE GERAL</span></div>
+  <div class="stat"><strong>10.0</strong><span>VERSÃO</span></div>
+ </div>
+ <h2>RESUMO</h2>
+ <div id="summary"></div>
+ <button id="openSettings">ABRIR CONFIGURAÇÕES</button>
+ <button id="openProfile">MEU PERFIL</button>
+ <button id="openBackup">GERENCIAR BACKUP</button>
+</section>
+
+<section id="profile" hidden>
+ <h2>PERFIL DO JOGADOR</h2>
+ <div class="avatar-box"><img id="avatar" alt="Foto do jogador"></div>
+ <input id="photoInput" type="file" accept="image/*">
+ <input id="editName" placeholder="Nome do jogador">
+ <button id="saveProfile">SALVAR PERFIL</button>
+ <p id="profileMessage"></p>
+</section>
+
+<section id="settings" hidden>
+ <h2>CONFIGURAÇÕES MANUAIS</h2>
+ <p>Organize seus próprios valores.</p>
+ <div class="profiles">
+  <button data-profile="puxada">PUXADA</button>
+  <button data-profile="equilibrio">EQUILÍBRIO</button>
+  <button data-profile="precisao">PRECISÃO</button>
+ </div>
+ <div id="controls"></div>
+ <button id="save">SALVAR CONFIGURAÇÕES</button>
+ <button id="copy">COPIAR VALORES</button>
+ <button id="reset">RESTAURAR VALORES</button>
+ <p id="message"></p>
+</section>
+
+<section id="history" hidden>
+ <h2>HISTÓRICO THE 77</h2>
+ <div id="historyList"></div>
+ <button id="clearHistory">LIMPAR HISTÓRICO</button>
+</section>
+
+<section id="backup" hidden>
+ <h2>BACKUP DE DADOS</h2>
+ <button id="exportBtn">EXPORTAR BACKUP</button>
+ <input id="importFile" type="file" accept=".json,application/json">
+ <button id="importBtn">IMPORTAR BACKUP</button>
+ <p id="backupMessage"></p>
+</section>
+
+<button id="logout">VOLTAR AO INÍCIO</button>
+</main>
+
+<footer>
+ <h3>♛ THE 77 ♛</h3>
+ <p>77 XIT FF — FINAL EDITION 10.0</p>
+ <p>Painel de organização de configurações manuais.</p>
+</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+
+const defaults={geral:190,redDot:185,mira2x:180,mira4x:170,awm:80,olhar:120};
+
+function load(key,fallback){
+ try{
+  const value=localStorage.getItem("77_"+key);
+  return value?JSON.parse(value):fallback;
+ }catch{return fallback}
+}
+function store(key,value){
+ try{localStorage.setItem("77_"+key,JSON.stringify(value))}
+ catch{alert("Não foi possível salvar. Verifique o espaço disponível.")}
+}
+
+let settings={...defaults,...load("settings",{})};
+let history=load("history",[]);
+
+function show(section){
+ ["home","profile","settings","history","backup"].forEach(id=>{
+  $(id).hidden=id!==section;
+ });
+ if(section==="home")updateStats();
+ if(section==="history")renderHistory();
+}
+
+function renderSummary(){
+ const labels={geral:"GERAL",redDot:"PONTO VERMELHO",mira2x:"MIRA 2X",mira4x:"MIRA 4X",awm:"MIRA AWM",olhar:"OLHADINHA"};
+ $("summary").innerHTML="";
+ Object.entries(labels).forEach(([key,label])=>{
+  const item=document.createElement("div");
+  item.className="summary-item";
+  const name=document.createElement("span");
+  name.textContent=label;
+  const value=document.createElement("strong");
+  value.textContent=settings[key];
+  item.append(name,value);
+  $("summary").appendChild(item);
+ });
+}
+
+function updateStats(){
+ $("savedCount").textContent=history.length;
+ const values=Object.values(settings);
+ $("averageValue").textContent=Math.round(values.reduce((a,b)=>a+b,0)/values.length);
+ $("lastValue").textContent=history.length?history[history.length-1].values.geral:"--";
+ renderSummary();
+}
+
+function renderControls(){
+ const labels={geral:"GERAL",redDot:"PONTO VERMELHO",mira2x:"MIRA 2X",mira4x:"MIRA 4X",awm:"MIRA AWM",olhar:"OLHADINHA"};
+ $("controls").innerHTML="";
+ Object.entries(labels).forEach(([key,label])=>{
+  const item=document.createElement("div");
+  item.className="control";
+  const title=document.createElement("label");
+  title.textContent=label;
+  const value=document.createElement("strong");
+  value.textContent=settings[key];
+  title.appendChild(value);
+  const slider=document.createElement("input");
+  slider.type="range";slider.min=0;slider.max=200;slider.value=settings[key];
+  slider.oninput=()=>{
+   settings[key]=Number(slider.value);
+   value.textContent=settings[key];
+  };
+  item.append(title,slider);
+  $("controls").appendChild(item);
+ });
+}
+
+function saveSettings(){
+ history.push({date:new Date().toISOString(),values:{...settings}});
+ store("settings",settings);
+ store("history",history);
+ $("message").textContent="Configurações salvas!";
+ updateStats();
+}
+
+function renderHistory(){
+ $("historyList").innerHTML="";
+ if(!history.length){
+  $("historyList").textContent="Nenhum registro salvo.";
+  return;
+ }
+ history.slice().reverse().forEach(item=>{
+  const card=document.createElement("div");
+  card.className="stat";
+  card.textContent=new Date(item.date).toLocaleString("pt-BR")+" — Geral: "+item.values.geral;
+  $("historyList").appendChild(card);
+ });
+}
+
+function applyProfile(profile){
+ const presets={
+  puxada:{geral:195,redDot:190,mira2x:185,mira4x:175,awm:85,olhar:125},
+  equilibrio:{geral:180,redDot:175,mira2x:170,mira4x:160,awm:75,olhar:110},
+  precisao:{geral:165,redDot:160,mira2x:155,mira4x:145,awm:65,olhar:100}
+ };
+ settings={...presets[profile]};
+ renderControls();
+ $("message").textContent="Perfil selecionado!";
+}
+
+$("homeBtn").onclick=()=>show("home");
+$("sensBtn").onclick=()=>show("settings");
+$("historyBtn").onclick=()=>show("history");
+$("openSettings").onclick=()=>show("settings");
+$("openProfile").onclick=()=>show("profile");
+$("openBackup").onclick=()=>show("backup");
+$("save").onclick=saveSettings;
+
+$("reset").onclick=()=>{
+ settings={...defaults};
+ renderControls();
+ $("message").textContent="Valores restaurados!";
+};
+
+$("copy").onclick=async()=>{
+ const content=Object.entries(settings).map(([k,v])=>k+": "+v).join("\n");
+ try{
+  await navigator.clipboard.writeText(content);
+  $("message").textContent="Valores copiados!";
+ }catch{
+  $("message").textContent="Cópia não disponível neste navegador.";
+ }
+};
+
+document.querySelectorAll("[data-profile]").forEach(button=>{
+ button.onclick=()=>applyProfile(button.dataset.profile);
+});
+
+$("saveProfile").onclick=()=>{
+ const name=$("editName").value.trim();
+ if(!name){$("profileMessage").textContent="Digite seu nome.";return}
+ store("name",name);
+ $("welcome").textContent="Bem-vindo, "+name+"!";
+ $("profileMessage").textContent="Perfil atualizado!";
+};
+
+$("photoInput").onchange=event=>{
+ const file=event.target.files[0];
+ if(!file||!file.type.startsWith("image/"))return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  $("avatar").src=reader.result;
+  store("photo",reader.result);
+  $("profileMessage").textContent="Foto atualizada!";
+ };
+ reader.readAsDataURL(file);
+};
+
+$("clearHistory").onclick=()=>{
+ if(!confirm("Deseja apagar todo o histórico?"))return;
+ history=[];
+ store("history",history);
+ renderHistory();
+ updateStats();
+};
+
+$("exportBtn").onclick=()=>{
+ const backup={settings,history,name:load("name",""),photo:load("photo","")};
+ const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob);
+ const link=document.createElement("a");
+ link.href=url;link.download="THE-77-FINAL-EDITION.json";
+ link.click();
+ URL.revokeObjectURL(url);
+ $("backupMessage").textContent="Backup exportado!";
+};
+
+$("importBtn").onclick=()=>{
+ const file=$("importFile").files[0];
+ if(!file){$("backupMessage").textContent="Selecione um arquivo JSON.";return}
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const data=JSON.parse(reader.result);
+   if(!data.settings||!Array.isArray(data.history))throw new Error();
+   const imported={};
+   Object.keys(defaults).forEach(key=>{
+    const value=Number(data.settings[key]);
+    imported[key]=Number.isFinite(value)?Math.max(0,Math.min(200,Math.round(value))):defaults[key];
+   });
+   settings=imported;
+   history=data.history;
+   store("settings",settings);
+   store("history",history);
+   if(typeof data.name==="string"){
+    store("name",data.name);
+    $("editName").value=data.name;
+    $("welcome").textContent="Bem-vindo, "+data.name+"!";
+   }
+   if(typeof data.photo==="string"){
+    store("photo",data.photo);
+    $("avatar").src=data.photo;
+   }
+   renderControls();
+   updateStats();
+   $("backupMessage").textContent="Backup importado!";
+  }catch{
+   $("backupMessage").textContent="Arquivo inválido!";
+  }
+ };
+ reader.readAsText(file);
+};
+
+$("logout").onclick=()=>show("home");
+
+const savedName=load("name","");
+const savedPhoto=load("photo","");
+if(savedName){
+ $("editName").value=savedName;
+ $("welcome").textContent="Bem-vindo, "+savedName+"!";
+}
+if(savedPhoto)$("avatar").src=savedPhoto;
+
+renderControls();
+updateStats();
+show("home");
+</script>
+</body>
+</html>
