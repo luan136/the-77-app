@@ -1,0 +1,12 @@
+
+{
+  "name": "THE 77 - Final Edition",
+  "short_name": "THE 77",
+  "description": "Painel pessoal de configurações manuais",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#10091d",
+  "theme_color": "#10091d"
+}
